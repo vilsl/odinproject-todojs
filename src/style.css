@@ -1,0 +1,78 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    position: fixed;
+    height: 100%;
+    width: 200px;
+    z-index: 1;
+    padding-top: 20px;
+    border: 1px solid red;
+}
+
+main {
+    margin-left: 200px;
+    height: 100%;
+    padding-top: 20px;
+}
+
+#todoContainer {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;   
+}
+
+.list {
+    margin: 5px 10px;
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    flex: auto;
+    min-width: 100px;
+    max-width: 300px;
+    min-height: 100px;
+    text-align: center;
+}
+
+.todo {
+    margin: 5px 10px 15px 10px;
+    display: inline-flex;
+    width: 300px;
+    height: 20px;
+    line-height: 20px;
+    text-align: left;
+}
+
+.todo p {
+    padding: 0 5px;
+    flex-grow: 1;
+}
+
+.titleDiv {
+    width: 160px;
+    margin-left: 10px;
+    float: left;
+    overflow: hidden;
+}
+
+
+.todoMeta {
+    margin-right: 5px;
+    float: right;
+}
+
+.todoMeta .priority {
+    float: left;
+    width: 10px;
+}
+
+.todoMeta .dueDate {
+    float: right;
+}
+
+.completeButton {
+    width: 20px;
+    height: 20px;
+}
