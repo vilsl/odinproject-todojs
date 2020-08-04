@@ -24,18 +24,56 @@ todo.todo.newTodo("apples", "Eat a fuckton of apples", "23.02.20", "!!!", second
 
 renderer.render(listArray);
 
+const EventHandler = (() => {
+    const _addToggleCompleteEvent = () => {
+        let buttons = document.getElementsByClassName("completeButton");
+        for (let i = 0; i < buttons.length; i++){
+            buttons[i].addEventListener("click", InputHandler.buttonComplete);
+        }
+    };
 
-const ButtonInputs = (() => {
-
-    const toggleComplete = (pos) => {
-        let i = pos[0];
-        let j = pos[1];
-        let arr = listArray[i];
-        arr = arr[j];
-        arr.markComplete();
+    const addEventHandlers = () => {
+        _addToggleCompleteEvent();
     };
 
     return {
-        toggleComplete
+        addEventHandlers
     }
 })();
+
+const InputHandler = (() => {
+    // Grabs the "position" of the target todo object. First value is list index, second is todo index in the list.
+    const _toggleComplete = (e) => { 
+        let arr = e.target.value;
+        let i = arr[0]; // Get position
+        let j = arr[2];
+        let pos = arr;
+        arr = listArray[i]; // Get corresponding list
+        arr = arr.getArray(); // Get todo array from the list
+        arr = arr[j]; // Get specified todo object
+        let todoDiv = document.getElementById(`todo${pos}`);
+        if (arr.getCompleted() === false){
+            todoDiv.className += " completedTodo";
+            e.target.innerHTML = "&#10003;";
+            arr.markComplete();
+        }
+        else {
+            todoDiv.className = "todo";
+            e.target.innerHTML = "";
+            arr.markNotComplete();
+        }
+        console.log(arr.getTitle());
+        console.log(arr.getCompleted());
+        
+    };
+
+    const buttonComplete = (e) => {
+        _toggleComplete(e);
+    };
+
+    return {
+        buttonComplete
+    }
+})();
+
+EventHandler.addEventHandlers();

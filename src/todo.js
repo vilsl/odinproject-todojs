@@ -117,7 +117,7 @@ const TodoMediator = ((command) => {
     };
 
     const completeTodo = (todoContent) => {
-        if (todoContent.getCompleted == false){
+        if (todoContent.getCompleted === false){
             TodoUpdater.markComplete(todoContent);
         }
         else {

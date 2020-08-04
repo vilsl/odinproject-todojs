@@ -73,6 +73,14 @@ main {
 }
 
 .completeButton {
+    background-color: white;
     width: 20px;
     height: 20px;
+    font-size: 17px;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+.completedTodo {
+    opacity: 20%;
 }

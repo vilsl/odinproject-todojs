@@ -67,7 +67,7 @@ const ListRenderer = (() => {
                 // Create new todo div
                 let todoDiv = document.createElement("div");
                 let pos = [i,j];
-                todoDiv.setAttribute("id", `todo${j}`);
+                todoDiv.setAttribute("id", `todo${pos}`);
                 todoDiv.setAttribute('class', 'todo');
                 
                 let title = _domTitleCreator(todoArray[j]);
