@@ -69,12 +69,11 @@ const ListRenderer = (() => {
                 let pos = [i,j];
                 todoDiv.setAttribute("id", `todo${pos}`);
                 todoDiv.setAttribute('class', 'todo');
+                todoDiv.setAttribute('value', pos);
                 
                 let title = _domTitleCreator(todoArray[j]);
                 let dueDate = _domDateCreator(todoArray[j]);
                 let priority = _domPriorityCreator(todoArray[j]);
-                let completeStatus = _domCompleteCreator(todoArray[j]);
-                let description = _domDescriptionCreator(todoArray[j]);
 
                 let button = document.createElement("button");
                 button.setAttribute("id", `completeButton${j}`);

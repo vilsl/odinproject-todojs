@@ -8,7 +8,7 @@ listArray.push(testList);
 let secondList = todo.todo.newList("secondList");
 listArray.push(secondList);
 
-todo.todo.newTodo("bananabananasbanabananabananasbananasbananassnasbananass", "Eat many banans", "21.07.20", "!!!", testList);
+todo.todo.newTodo("bananabananasbanabananabananasbananasbananassnasbananass", "Eat many bananabananasbanabananabananasbananasbananassnasbananassbanans", "21.07.20", "!!!", testList);
 todo.todo.newTodo("apples", "Eat a fuckton of apples", "23.02.20", "", testList);
 todo.todo.newTodo("apples", "Eat a fuckton of apples", "23.02.20", "!!", testList);
 todo.todo.newTodo("apples", "Eat a fuckton of apples", "23.02.20", "!", testList);
@@ -32,15 +32,23 @@ const EventHandler = (() => {
         }
     };
 
+    const _addExpandTodoEvent = () => {
+        let todoDivs = document.getElementsByClassName("titleDiv");
+        for (let i = 0; i < todoDivs.length; i++){
+            todoDivs[i].addEventListener("click", InputHandler.clickedTitle);
+        }
+    };
+
     const addEventHandlers = () => {
         _addToggleCompleteEvent();
+        _addExpandTodoEvent();
     };
 
     return {
         addEventHandlers
     }
 })();
-
+// This can be optimized, lots of repeat code
 const InputHandler = (() => {
     // Grabs the "position" of the target todo object. First value is list index, second is todo index in the list.
     const _toggleComplete = (e) => { 
@@ -53,12 +61,12 @@ const InputHandler = (() => {
         arr = arr[j]; // Get specified todo object
         let todoDiv = document.getElementById(`todo${pos}`);
         if (arr.getCompleted() === false){
-            todoDiv.className += " completedTodo";
+            todoDiv.classList.toggle("completedTodo");
             e.target.innerHTML = "&#10003;";
             arr.markComplete();
         }
         else {
-            todoDiv.className = "todo";
+            todoDiv.classList.toggle("completedTodo");
             e.target.innerHTML = "";
             arr.markNotComplete();
         }
@@ -67,12 +75,46 @@ const InputHandler = (() => {
         
     };
 
+    const _expandTodo = (e) => { // Get todo object, toggle expanded description
+        let arr = e.target;
+        arr = arr.parentNode;
+        arr = arr.getAttribute('value');
+        let i = arr[0]; 
+        let j = arr[2];
+        let pos = arr;
+        arr = listArray[i]; 
+        arr = arr.getArray(); 
+        arr = arr[j]; 
+
+        let todoDiv = document.getElementById(`todo${pos}`);
+        if (todoDiv.querySelectorAll(".description").length > 0){
+            document.getElementById(`description${pos}`).remove();
+        }
+        else {
+            let descriptionDiv = document.createElement("div");
+            descriptionDiv.setAttribute("class", "description");
+            descriptionDiv.setAttribute("id", `description${pos}`);
+    
+            let description = document.createElement("p");
+            description.innerHTML = arr.getDescription();
+    
+            descriptionDiv.appendChild(description);
+    
+            todoDiv.appendChild(descriptionDiv);  
+        }
+    };
+
     const buttonComplete = (e) => {
         _toggleComplete(e);
     };
 
+    const clickedTitle = (e) => {
+        _expandTodo(e);
+    };
+
     return {
-        buttonComplete
+        buttonComplete,
+        clickedTitle
     }
 })();
 
